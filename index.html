@@ -1,70 +1,82 @@
 <style>
-    /* ... keep your other styles ... */
-
-    .card { 
-        background: white; padding: 30px; border-radius: 20px; 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;
-        /* Slowed down the transition to make it feel expensive/smooth */
-        transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, border 0.5s ease;
-        cursor: pointer;
-        transform: scale(1);
-        border: 1px solid transparent;
-        position: relative;
+    /* --- FONTS --- */
+    .main-title {
+        font-family: 'Orbitron', sans-serif; /* Back to Orbitron */
+        text-transform: uppercase;
+        letter-spacing: 8px;
+        font-size: 2.2rem;
+        color: #fff;
+        margin: 0;
+        text-shadow: 0 0 15px rgba(255, 212, 59, 0.6);
+    }
+    .script-subheading {
+        font-family: 'Pinyon Script', cursive;
+        font-size: 3rem;
+        color: #fff;
+        margin-top: -15px;
+        display: block;
     }
 
-    /* PC Hover - only works if not on mobile */
+    /* --- CARD STYLES --- */
+    .card { 
+        background: white; 
+        padding: 30px; 
+        border-radius: 20px; 
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+        text-align: left;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Professional smooth transition */
+        cursor: pointer;
+        transform: scale(0.95); /* Slightly smaller by default to make the "pop" look better */
+        opacity: 0.8;
+        border: 2px solid transparent;
+    }
+
+    /* THE FIX: This class stays ON even when you stop scrolling */
+    .card.active-focus {
+        transform: scale(1.05);
+        opacity: 1;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        border: 2px solid rgba(26, 115, 232, 0.3);
+        z-index: 10;
+    }
+
     @media (hover: hover) {
         .card:hover {
-            transform: scale(1.05) !important;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            z-index: 10;
+            transform: scale(1.05);
+            opacity: 1;
         }
     }
 
-    /* The "One Winner" class for mobile */
-    .card.active-focus {
-        transform: scale(1.08);
-        box-shadow: 0 20px 40px rgba(26, 115, 232, 0.15);
-        border: 1px solid rgba(26, 115, 232, 0.4);
-        z-index: 5;
+    .grid { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 30px; 
+        padding: 20px;
     }
 </style>
 
 <script>
-    const cards = document.querySelectorAll('.card');
-    let isScrolling;
-
-    const handleScroll = () => {
-        // Find the horizontal center line of the screen
-        const viewportCenter = window.innerHeight / 2;
-        
-        let closestCard = null;
-        let minDistance = Infinity;
-
-        cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const cardCenter = rect.top + (rect.height / 2);
-            const distanceToCenter = Math.abs(viewportCenter - cardCenter);
-
-            if (distanceToCenter < minDistance) {
-                minDistance = distanceToCenter;
-                closestCard = card;
-            }
-        });
-
-        // "Lock-on" Logic: Only switch if the card is reasonably close to center
-        if (closestCard) {
-            cards.forEach(c => c.classList.remove('active-focus'));
-            closestCard.classList.add('active-focus');
-        }
+    // THE NEW OBSERVER LOGIC
+    // This "watches" which card is most visible in the center of the screen
+    const options = {
+        root: null,
+        rootMargin: '-20% 0px -20% 0px', // Focuses on the middle 60% of the screen
+        threshold: 0.5 
     };
 
-    // This prevents the "flicker" by slightly throttling the scroll check
-    window.addEventListener('scroll', () => {
-        window.cancelAnimationFrame(isScrolling);
-        isScrolling = window.requestAnimationFrame(handleScroll);
-    }, { passive: true });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove active class from all cards
+                document.querySelectorAll('.card').forEach(c => c.classList.remove('active-focus'));
+                // Add to the one currently in view
+                entry.target.classList.add('active-focus');
+            }
+        });
+    }, options);
 
-    // Initial check
-    handleScroll();
+    // Start watching each card
+    document.querySelectorAll('.card').forEach(card => {
+        observer.observe(card);
+    });
 </script>
