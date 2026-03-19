@@ -17,7 +17,7 @@
             font-family: 'Inter', sans-serif; color: #333; overflow-x: hidden; 
         }
 
-        /* --- HEADER SECTION --- */
+        /* --- HEADER --- */
         .hero { 
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1350&q=80'); 
             background-size: cover; background-position: center; height: 75vh; 
@@ -34,7 +34,6 @@
             text-shadow: 0 0 15px rgba(255, 212, 59, 0.6);
         }
 
-        /* ✅ FIXED: Bolgoda now same font */
         .script-subheading {
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
@@ -52,7 +51,7 @@
         .card { 
             background: white; padding: 30px; border-radius: 20px; width: 90%;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left;
-            transition: all 0.4s ease;
+            transition: all 0.35s ease;
             transform: scale(0.95); opacity: 0.7;
             border: 2px solid transparent;
         }
@@ -113,6 +112,7 @@
 
     <script>
         const cards = document.querySelectorAll('.card');
+        let ticking = false;
 
         function updateActiveCard() {
             let closestCard = null;
@@ -131,13 +131,23 @@
                 }
             });
 
-            cards.forEach(c => c.classList.remove('active-focus'));
-            if (closestCard) {
+            const currentActive = document.querySelector('.active-focus');
+
+            if (closestCard && currentActive !== closestCard) {
+                cards.forEach(c => c.classList.remove('active-focus'));
                 closestCard.classList.add('active-focus');
             }
+
+            ticking = false;
         }
 
-        window.addEventListener('scroll', updateActiveCard);
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateActiveCard);
+                ticking = true;
+            }
+        });
+
         window.addEventListener('load', updateActiveCard);
     </script>
 
