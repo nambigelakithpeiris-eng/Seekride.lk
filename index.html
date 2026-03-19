@@ -1,116 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SeekRide Hotel Bolgoda</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        body { margin: 0; padding: 0; background-color: #fcfcfc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+<style>
+    /* ... keep your other styles ... */
 
-        /* --- THE SIGNATURE HEADING (Top Only) --- */
-        .script-heading {
-            font-family: 'Pinyon Script', cursive;
-            font-size: 4rem;
-            color: #fff;
-            margin: 0;
-            line-height: 1;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
-        .main-title {
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            font-size: 1.8rem;
-            color: #fff;
-            margin-top: -10px;
-        }
+    .card { 
+        background: white; padding: 30px; border-radius: 20px; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;
+        /* Slowed down the transition to make it feel expensive/smooth */
+        transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, border 0.5s ease;
+        cursor: pointer;
+        transform: scale(1);
+        border: 1px solid transparent;
+        position: relative;
+    }
 
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1350&q=80'); 
-            background-size: cover; background-position: center; height: 75vh; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-        }
-
-        /* --- ICON HOVER & SCROLL ANIMATION --- */
-        .card { 
-            background: white; padding: 30px; border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
-
-        /* Mouse Hover Effect */
+    /* PC Hover - only works if not on mobile */
+    @media (hover: hover) {
         .card:hover {
-            transform: scale(1.1); /* Makes the whole card/icon pop out */
+            transform: scale(1.05) !important;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            z-index: 10;
         }
+    }
 
-        /* Mobile Scroll Effect (Triggered by JavaScript below) */
-        .card.reveal {
-            transform: scale(1.08);
-        }
+    /* The "One Winner" class for mobile */
+    .card.active-focus {
+        transform: scale(1.08);
+        box-shadow: 0 20px 40px rgba(26, 115, 232, 0.15);
+        border: 1px solid rgba(26, 115, 232, 0.4);
+        z-index: 5;
+    }
+</style>
 
-        .services { padding: 60px 20px; max-width: 1100px; margin: auto; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .btn { background-color: #ff9f43; color: white; padding: 16px 35px; border: none; border-radius: 50px; text-decoration: none; margin-top: 25px; display: inline-block; font-weight: 600; }
+<script>
+    const cards = document.querySelectorAll('.card');
+    let isScrolling;
+
+    const handleScroll = () => {
+        // Find the horizontal center line of the screen
+        const viewportCenter = window.innerHeight / 2;
         
-        h3 { color: #1a73e8; margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        footer { background-color: #1a1a1a; color: white; padding: 40px; text-align: center; margin-top: 50px; }
-    </style>
-</head>
-<body>
+        let closestCard = null;
+        let minDistance = Infinity;
 
-    <header class="hero">
-        <h1 class="script-heading">SeekRide</h1>
-        <h2 class="main-title">Bolgoda</h2>
-        <p style="color: white; max-width: 400px; opacity: 0.9;">Luxury rooms, pool days, and lakeside celebrations.</p>
-        <a href="https://wa.me/94760029526" class="btn">Book via WhatsApp</a>
-    </header>
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardCenter = rect.top + (rect.height / 2);
+            const distanceToCenter = Math.abs(viewportCenter - cardCenter);
 
-    <section class="services">
-        <h2 style="margin-bottom: 40px;">Our Offerings</h2>
-        <div class="grid">
-            <div class="card" id="rooms-card">
-                <h3><span>🛏️</span> Rooms</h3>
-                <p>Premium A/C suites and comfortable Non-A/C options. Perfect for couples and families.</p>
-            </div>
-
-            <div class="card">
-                <h3><span>🏊</span> Swimming Pool</h3>
-                <p>Enjoy a refreshing dip in our crystal-clear pool. Perfect for day-outings.</p>
-            </div>
-
-            <div class="card">
-                <h3><span>🎉</span> Events</h3>
-                <p>Host your birthdays, weddings, or private parties with a beautiful Bolgoda backdrop.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>📍 Bolgoda, Sri Lanka | 📞 +94 76 002 9526</p>
-    </footer>
-
-    <script>
-        const cards = document.querySelectorAll('.card');
-        
-        window.addEventListener('scroll', () => {
-            const triggerBottom = window.innerHeight / 5 * 4;
-            
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                
-                if(cardTop < triggerBottom) {
-                    card.classList.add('reveal');
-                    // Remove the class after a second so it can "pop" again later
-                    setTimeout(() => card.classList.remove('reveal'), 1000);
-                }
-            });
+            if (distanceToCenter < minDistance) {
+                minDistance = distanceToCenter;
+                closestCard = card;
+            }
         });
-    </script>
 
-</body>
-</html>
+        // "Lock-on" Logic: Only switch if the card is reasonably close to center
+        if (closestCard) {
+            cards.forEach(c => c.classList.remove('active-focus'));
+            closestCard.classList.add('active-focus');
+        }
+    };
+
+    // This prevents the "flicker" by slightly throttling the scroll check
+    window.addEventListener('scroll', () => {
+        window.cancelAnimationFrame(isScrolling);
+        isScrolling = window.requestAnimationFrame(handleScroll);
+    }, { passive: true });
+
+    // Initial check
+    handleScroll();
+</script>
