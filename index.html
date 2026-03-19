@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* General Styles */
         body { 
             margin: 0; 
             padding: 0; 
@@ -17,20 +16,28 @@
             color: #333;
         }
 
-        /* --- THE SIGN HEADING STYLE --- */
-        h1 { 
+        /* --- THE SIGN STYLE (TOP ONLY) --- */
+        .sign-heading { 
             font-family: 'Orbitron', sans-serif; 
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 8px; /* Extra wide like your photo */
+            letter-spacing: 8px; 
             font-size: 2.5rem;
             color: #fff;
             margin: 0;
-            /* Subtle golden glow to match the sign's backlight */
-            text-shadow: 0 0 15px rgba(255, 212, 59, 0.5), 0 0 5px rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 15px rgba(255, 212, 59, 0.6), 0 0 5px rgba(255, 255, 255, 0.8);
         }
 
-        /* Hero Section */
+        /* --- STANDARD STYLE (EVERYWHERE ELSE) --- */
+        h2 {
+            font-family: 'Inter', sans-serif; /* Keeps "Our Offerings" normal */
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            letter-spacing: normal;
+            text-transform: none;
+        }
+
         .hero { 
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1350&q=80'); 
             background-size: cover; 
@@ -44,14 +51,6 @@
             padding: 0 20px; 
         }
 
-        .hero p {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.9);
-            margin-top: 15px;
-            max-width: 500px;
-        }
-
-        /* Booking Button */
         .btn { 
             background-color: #ff9f43; 
             color: white; 
@@ -64,99 +63,49 @@
             text-decoration: none; 
             display: inline-block; 
             margin-top: 30px; 
-            transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(255, 159, 67, 0.4);
         }
-        .btn:hover { 
-            background-color: #f39c12; 
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 159, 67, 0.6);
-        }
 
-        /* Services Grid */
-        .services { 
-            padding: 80px 20px; 
-            max-width: 1100px; 
-            margin: auto; 
-            text-align: center; 
-        }
-        .services h2 {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: #2c3e50;
-        }
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
-        }
-        .card { 
-            background: white; 
-            padding: 35px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            text-align: left; 
-            transition: 0.3s;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { 
-            color: #1a73e8; 
-            margin-top: 0; 
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
+        .services { padding: 80px 20px; max-width: 1100px; margin: auto; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; }
+        .card h3 { color: #1a73e8; margin-top: 0; font-weight: 600; }
 
-        /* Footer */
-        footer { 
-            background-color: #1a1a1a; 
-            color: white; 
-            padding: 60px 20px; 
-            text-align: center; 
-        }
-        footer h3 { color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
-        .contact-info { margin: 20px 0; line-height: 1.8; }
-        .copyright { opacity: 0.5; font-size: 13px; margin-top: 30px; }
+        footer { background-color: #1a1a1a; color: white; padding: 60px 20px; text-align: center; }
 
-        /* Responsive Fix for Mobile Phones */
         @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; letter-spacing: 4px; }
+            .sign-heading { font-size: 1.8rem; letter-spacing: 4px; }
         }
     </style>
 </head>
 <body>
 
     <header class="hero">
-        <h1>SeekRide Bolgoda</h1>
-        <p>Luxury rooms, pool days, and unforgettable lakeside celebrations.</p>
+        <h1 class="sign-heading">SeekRide Bolgoda</h1>
+        <p style="color: white; margin-top: 15px;">Luxury rooms, pool days, and lakeside celebrations.</p>
         <a href="https://wa.me/94760029526" class="btn">Book via WhatsApp</a>
     </header>
 
     <section class="services">
-        <h2>Our Offerings</h2>
-        <div class="grid">
+        <h2>Our Offerings</h2> <div class="grid">
             <div class="card">
                 <h3>🛏️ Rooms</h3>
-                <p>Choose from our Premium A/C suites or cozy Non-A/C options. Perfect for couples and families.</p>
+                <p>Premium A/C suites and comfortable Non-A/C options.</p>
             </div>
             <div class="card">
                 <h3>🏊 Swimming Pool</h3>
-                <p>Enjoy a refreshing dip in our pool. Perfect for day-outings and weekend relaxation.</p>
+                <p>Refresh in our crystal-clear pool. Perfect for day-outings.</p>
             </div>
             <div class="card">
                 <h3>🎉 Events</h3>
-                <p>Host your birthdays, weddings, or private parties with a beautiful Bolgoda backdrop.</p>
+                <p>Weddings, Birthdays, and Parties at Bolgoda Lake.</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <h3>Contact Us</h3>
-        <div class="contact-info">
-            <p>📍 Bolgoda, Sri Lanka</p>
-            <p>📞 +94 76 002 9526</p>
-        </div>
-        <p class="copyright">© 2026 SeekRide Hotel Bolgoda. All Rights Reserved.</p>
+        <p>📍 Bolgoda, Sri Lanka | 📞 +94 76 002 9526</p>
+        <p style="opacity: 0.5; font-size: 12px; margin-top: 20px;">© 2026 SeekRide Hotel Bolgoda</p>
     </footer>
 
 </body>
