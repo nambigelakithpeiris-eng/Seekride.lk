@@ -5,122 +5,51 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SeekRide Luxury Hotel Bolgoda</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Inter', sans-serif; color:#333; overflow-x:hidden; }
-
-a { text-decoration:none; }
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;color:#333;overflow-x:hidden;}
+a{text-decoration:none;}
 
 /* NAVBAR */
-header.navbar {
-  position: fixed;
-  top:0; left:0; width:100%;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:15px 40px; z-index:999;
-  transition: background 0.4s;
-}
-header.navbar.scrolled { background: rgba(0,0,0,0.8); }
-header.navbar .logo {
-  font-family:'Orbitron', sans-serif;
-  font-size:1.8rem; color:#fff; letter-spacing:4px;
-}
-header.navbar nav a {
-  color:#fff; margin-left:25px; font-weight:600; transition: color 0.3s;
-}
-header.navbar nav a:hover { color:#ff9f43; }
+header.navbar{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 40px;z-index:999;transition:background 0.4s;}
+header.navbar.scrolled{background: rgba(0,0,0,0.8);}
+header.navbar .logo{font-family:'Orbitron',sans-serif;font-size:1.8rem;color:#fff;letter-spacing:4px;}
+header.navbar nav a{color:#fff;margin-left:25px;font-weight:600;transition:color 0.3s;}
+header.navbar nav a:hover{color:#ff9f43;}
 
 /* HERO */
-.hero {
-  height:100vh; width:100%;
-  position:relative;
-  display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
-  color:#fff;
-  overflow:hidden;
-}
-.hero video {
-  position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:-1;
-}
-.hero h1 {
-  font-family:'Orbitron', sans-serif;
-  font-size:3rem; letter-spacing:8px;
-  text-shadow:0 0 20px rgba(0,0,0,0.7);
-  transform: translateY(0); transition: transform 1s ease;
-}
-.hero h2 {
-  font-family:'Orbitron', sans-serif;
-  font-size:2rem; margin:15px 0;
-  text-shadow:0 0 10px rgba(0,0,0,0.5);
-  transform: translateY(0); transition: transform 1s ease;
-}
-.hero p {
-  font-size:1.1rem; opacity:0.85; max-width:600px; text-shadow:0 0 5px rgba(0,0,0,0.5);
-  transform: translateY(0); transition: transform 1s ease;
-}
-.hero .btn-book {
-  margin-top:25px; background:#ff9f43; padding:16px 40px; border-radius:50px; font-weight:600;
-  font-size:1rem; color:#fff; border:none; cursor:pointer;
-  transition: all 0.4s;
-  transform: scale(0.95);
-}
-.hero .btn-book:hover, .hero .btn-book.active-focus { transform: scale(1.15); box-shadow:0 10px 25px rgba(255,159,67,0.5); }
+.hero{height:100vh;width:100%;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;overflow:hidden;}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;}
+.hero h1{font-family:'Orbitron',sans-serif;font-size:3rem;letter-spacing:8px;text-shadow:0 0 20px rgba(0,0,0,0.7);}
+.hero h2{font-family:'Orbitron',sans-serif;font-size:2rem;margin:15px 0;text-shadow:0 0 10px rgba(0,0,0,0.5);}
+.hero p{font-size:1.1rem;opacity:0.85;max-width:600px;text-shadow:0 0 5px rgba(0,0,0,0.5);}
+.hero .btn-book{margin-top:25px;background:#ff9f43;padding:16px 40px;border-radius:50px;font-weight:600;font-size:1rem;color:#fff;border:none;cursor:pointer;transition:all 0.4s;transform:scale(0.95);}
+.hero .btn-book:hover,.hero .btn-book.active-focus{transform:scale(1.15);box-shadow:0 10px 25px rgba(255,159,67,0.5);}
 
 /* SERVICES CARDS */
-.services {
-  padding:80px 20px; max-width:1200px; margin:auto; text-align:center;
-}
-.services h2 { margin-bottom:50px; font-size:2.2rem; color:#1a73e8; }
+.services{padding:80px 20px;max-width:1200px;margin:auto;text-align:center;}
+.services h2{margin-bottom:50px;font-size:2.2rem;color:#1a73e8;}
+.grid{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;perspective:1500px;}
 
-.grid {
-  display:flex; flex-wrap:wrap; gap:30px; justify-content:center;
-  perspective:1000px;
+.card{
+  background:#fff;border-radius:20px;padding:20px;width:300px;box-shadow:0 5px 15px rgba(0,0,0,0.05);
+  text-align:left;transition: all 0.3s ease, transform 0.1s ease;transform:scale(0.95) translateY(40px);
+  opacity:0.7;border:2px solid transparent;cursor:pointer;background-size:cover;background-position:center;
+  color:#fff;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;
 }
-
-.card {
-  background:#fff; border-radius:20px; padding:20px;
-  width:300px; box-shadow:0 5px 15px rgba(0,0,0,0.05);
-  text-align:left; transition:all 0.5s ease;
-  transform: scale(0.95) translateY(40px); opacity:0.7;
-  border:2px solid transparent; cursor:pointer;
-  background-size:cover; background-position:center;
-  color:#fff; min-height:320px; display:flex; flex-direction:column; justify-content:flex-end;
-}
-.card.active-focus, .card:hover {
-  transform: scale(1.08) translateY(0); opacity:1;
-  box-shadow:0 20px 40px rgba(0,0,0,0.2);
-  border:2px solid rgba(26,115,232,0.5);
-}
-.card h3 { font-size:1.5rem; margin-bottom:10px; color:#fff; text-shadow:0 0 5px rgba(0,0,0,0.6);}
-.card p { font-size:1rem; opacity:0.9; text-shadow:0 0 3px rgba(0,0,0,0.6); }
-
-/* SWIPER */
-.swiper { width:100%; padding-bottom:50px; }
-.swiper-slide img { width:100%; border-radius:20px; }
+.card.active-focus{transform:scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg);opacity:1;
+box-shadow:0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset;border:2px solid rgba(26,115,232,0.5);}
+.card h3{font-size:1.5rem;margin-bottom:10px;text-shadow:0 0 5px rgba(0,0,0,0.6);}
+.card p{font-size:1rem;opacity:0.9;text-shadow:0 0 3px rgba(0,0,0,0.6);}
 
 /* FOOTER */
-footer {
-  background:#1a1a1a; color:#fff; padding:50px 20px; text-align:center;
-}
-footer p { margin:5px 0; font-size:0.95rem; }
+footer{background:#1a1a1a;color:#fff;padding:50px 20px;text-align:center;}
+footer p{margin:5px 0;font-size:0.95rem;}
 
-/* MEDIA */
-@media(max-width:768px){
-  .grid { flex-direction:column; }
-  header.navbar { padding:15px 20px; }
-}
-@media(max-width:480px){
-  .hero h1 { font-size:2rem; }
-  .hero h2 { font-size:1.3rem; }
-  .hero p { font-size:1rem; }
-}
+@media(max-width:768px){.grid{flex-direction:column;}header.navbar{padding:15px 20px;}}
+@media(max-width:480px){.hero h1{font-size:2rem;}.hero h2{font-size:1.3rem;}.hero p{font-size:1rem;}}
 </style>
 </head>
 <body>
@@ -144,7 +73,7 @@ footer p { margin:5px 0; font-size:0.95rem; }
   <h1>SeekRide</h1>
   <h2>Bolgoda</h2>
   <p>Luxury rooms, pool days, and lakeside celebrations. Experience hospitality like no other in Bolgoda.</p>
-  <a href="https://wa.me/94760029526" class="btn-book">Book via WhatsApp</a>
+  <button class="btn-book">Book via WhatsApp</button>
 </section>
 
 <!-- OFFERINGS -->
@@ -175,21 +104,6 @@ footer p { margin:5px 0; font-size:0.95rem; }
   </div>
 </section>
 
-<!-- SWIPER GALLERY -->
-<section class="services">
-  <h2>Gallery</h2>
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80"></div>
-      <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&w=1200&q=80"></div>
-      <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1501117716987-c8e9f8a1bdf7?auto=format&w=1200&q=80"></div>
-    </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <p>📍 Bolgoda, Sri Lanka</p>
@@ -197,64 +111,73 @@ footer p { margin:5px 0; font-size:0.95rem; }
   <p>© 2026 SeekRide Luxury Hotel</p>
 </footer>
 
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
-  // Scroll cards & button
-  const elements = document.querySelectorAll('.card, .btn-book');
-  let ticking = false;
-  function updateActiveElement() {
-    let closestElement = null;
-    let closestDistance = Infinity;
-    const center = window.innerHeight / 2;
-    elements.forEach(el=>{
-      const rect=el.getBoundingClientRect();
-      const elCenter=rect.top + rect.height/2;
-      const distance=Math.abs(center-elCenter);
-      if(distance<closestDistance){ closestDistance=distance; closestElement=el; }
-    });
-    const currentActive=document.querySelector('.active-focus');
-    if(closestElement && currentActive!==closestElement){
-      elements.forEach(e=>e.classList.remove('active-focus'));
-      closestElement.classList.add('active-focus');
-    }
-    ticking=false;
+// Scroll active card logic
+const cards = document.querySelectorAll('.card');
+let ticking = false;
+
+function updateActiveCard(){
+  let closestCard = null;
+  let closestDistance = Infinity;
+  const center = window.innerHeight/2;
+  cards.forEach(card=>{
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.top + rect.height/2;
+    const distance = Math.abs(center - cardCenter);
+    if(distance < closestDistance){closestDistance=distance;closestCard=card;}
+  });
+  if(closestCard){
+    cards.forEach(c=>c.classList.remove('active-focus'));
+    closestCard.classList.add('active-focus');
   }
-  window.addEventListener('scroll', ()=>{
-    if(!ticking){ window.requestAnimationFrame(updateActiveElement); ticking=true; }
+  ticking=false;
+}
+
+window.addEventListener('scroll',()=>{if(!ticking){window.requestAnimationFrame(updateActiveCard);ticking=true;}});
+window.addEventListener('load',updateActiveCard);
+
+// Navbar background
+const navbar=document.querySelector('header.navbar');
+window.addEventListener('scroll',()=>{window.scrollY>50?navbar.classList.add('scrolled'):navbar.classList.remove('scrolled');});
+
+// 3D tilt for desktop
+cards.forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    if(window.innerWidth>768){
+      const rect=card.getBoundingClientRect();
+      const x=e.clientX-rect.left;
+      const y=e.clientY-rect.top;
+      const centerX=rect.width/2;
+      const centerY=rect.height/2;
+      const rotateX=((y-centerY)/centerY)*10;
+      const rotateY=((x-centerX)/centerX)*10;
+      card.style.transform=`scale(1.08) translateY(0) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+      card.style.boxShadow=`0 25px 50px rgba(0,0,0,0.3),${-rotateY*2}px ${rotateX*2}px 20px rgba(26,115,232,0.6) inset`;
+    }
   });
-  window.addEventListener('load', updateActiveElement);
-
-  // Navbar background
-  const navbar = document.querySelector('header.navbar');
-  window.addEventListener('scroll', ()=>{
-    if(window.scrollY>50) navbar.classList.add('scrolled');
-    else navbar.classList.remove('scrolled');
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg)';
+    card.style.boxShadow='0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset';
   });
 
-  // Swiper
-  const swiper = new Swiper(".mySwiper", {
-    loop:true,
-    slidesPerView:1,
-    spaceBetween:20,
-    pagination:{ el:".swiper-pagination", clickable:true },
-    navigation:{ nextEl:".swiper-button-next", prevEl:".swiper-button-prev" },
-    autoplay:{ delay:2000, disableOnInteraction:false },
+  // mobile tap tilt
+  card.addEventListener('touchstart',e=>{
+    const touch=e.touches[0];
+    const rect=card.getBoundingClientRect();
+    const x=touch.clientX-rect.left;
+    const y=touch.clientY-rect.top;
+    const centerX=rect.width/2;
+    const centerY=rect.height/2;
+    const rotateX=((y-centerY)/centerY)*10;
+    const rotateY=((x-centerX)/centerX)*10;
+    card.style.transform=`scale(1.08) translateY(0) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+    card.style.boxShadow=`0 25px 50px rgba(0,0,0,0.3),${-rotateY*2}px ${rotateX*2}px 20px rgba(26,115,232,0.6) inset`;
   });
-
-  // Fade-in + parallax on scroll
-  const faders = document.querySelectorAll('.card, .hero h1, .hero h2, .hero p, .btn-book');
-  const appearOptions = { threshold:0.1, rootMargin:"0px 0px -50px 0px" };
-  const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll){
-    entries.forEach(entry=>{
-      if(!entry.isIntersecting) return;
-      entry.target.style.transform="translateY(0) scale(1)";
-      entry.target.style.opacity="1";
-      appearOnScroll.unobserve(entry.target);
-    });
-  }, appearOptions);
-  faders.forEach(fader=>appearOnScroll.observe(fader));
-
+  card.addEventListener('touchend',()=>{
+    card.style.transform='scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg)';
+    card.style.boxShadow='0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset';
+  });
+});
 </script>
 
 </body>
