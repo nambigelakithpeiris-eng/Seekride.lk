@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-  /* RESET & BASE */
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{scroll-behavior: smooth;}
   body{font-family:'Inter',sans-serif;color:#fff;background:#000;overflow-x:hidden;}
@@ -19,90 +18,50 @@
   header.navbar .logo{font-family:'Orbitron',sans-serif;font-size:1.5rem;color:#fff;letter-spacing:2px;}
   header.navbar nav a{color:#fff;margin-left:15px;font-size:0.75rem;font-weight:600;text-decoration:none;font-family:'Orbitron';}
 
-  /* HERO */
+  /* HERO - WITH YOUR COVER PHOTO */
   .hero{height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:20px;}
-  .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg') no-repeat center center/cover;z-index:-2;}
-  .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:-1;}
-  .hero h1{font-family:'Orbitron',sans-serif;font-size:3.2rem;letter-spacing:5px;margin-bottom:10px;text-transform:uppercase;}
-  .hero p{font-size:1rem;opacity:0.8;max-width:500px;margin-bottom:30px;line-height:1.5;}
-  .btn-whatsapp{background:#25D366;padding:18px 45px;border-radius:50px;font-weight:700;color:#fff;border:none;cursor:pointer;font-family:'Orbitron';font-size:0.9rem;box-shadow: 0 10px 20px rgba(0,0,0,0.3);}
-
-  /* SCROLL SNAPPING GRID - THE KEY FIX */
-  .services {
-    padding: 60px 0;
-    /* This creates the 'Snap' effect */
-    scroll-snap-type: y mandatory;
-    overflow-y: auto;
-    height: auto;
+  
+  /* THIS USES YOUR UPLOADED PHOTO */
+  .hero-bg{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    background:url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg') no-repeat center center/cover;
+    z-index:-2;
   }
   
-  .services h2 {
-    margin-bottom: 30px; 
-    font-family: 'Orbitron'; 
-    font-size: 1.8rem; 
-    color: #ff9f43; 
-    text-align: center;
-  }
-  
-  .grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 80px; 
-  }
+  .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:-1;}
+  .hero h1{font-family:'Orbitron',sans-serif;font-size:3.2rem;letter-spacing:5px;margin-bottom:10px;text-transform:uppercase; text-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+  .hero p{font-size:1rem;opacity:0.9;max-width:500px;margin-bottom:30px;line-height:1.5; font-weight: 500;}
+  .btn-whatsapp{background:#25D366;padding:18px 45px;border-radius:50px;font-weight:700;color:#fff;border:none;cursor:pointer;font-family:'Orbitron';font-size:0.9rem;box-shadow: 0 10px 25px rgba(37,211,102,0.3);}
 
-  .card-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    scroll-snap-align: center; /* Snap each card to the center of the screen */
-    padding: 20px 0;
-  }
+  /* SNAPPING GRID */
+  .services { padding: 60px 0; scroll-snap-type: y mandatory; overflow-y: auto;}
+  .services h2 { margin-bottom: 30px; font-family: 'Orbitron'; font-size: 1.8rem; color: #ff9f43; text-align: center;}
+  .grid { display: flex; flex-direction: column; align-items: center; gap: 80px; }
+  .card-container { width: 100%; display: flex; justify-content: center; scroll-snap-align: center; padding: 20px 0;}
 
   .card {
-    border-radius: 35px;
-    padding: 35px;
-    width: 88%;
-    max-width: 380px;
-    min-height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    
-    /* Starting state: Small and Dark */
-    transform: scale(0.8);
-    opacity: 0.2;
-    filter: brightness(0.4) saturate(0.5);
+    border-radius: 35px; padding: 35px; width: 88%; max-width: 380px; min-height: 500px;
+    display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden;
+    background-size: cover; background-position: center;
+    transform: scale(0.8); opacity: 0.2; filter: brightness(0.4) saturate(0.5);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* ACTIVE STATE: Clean focus on one card */
   .card.active-focus {
-    transform: scale(1.0) translateY(0);
-    opacity: 1;
-    filter: brightness(1) saturate(1);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.9);
-    border: 2px solid #ff9f43;
+    transform: scale(1.0); opacity: 1; filter: brightness(1) saturate(1);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.9); border: 2px solid #ff9f43;
   }
 
   .card::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,1) 20%, transparent 80%);
-    z-index: 1;
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,1) 20%, transparent 80%); z-index: 1;
   }
 
   .card-content { position: relative; z-index: 2; }
   .card h3 { font-family: 'Orbitron'; font-size: 2rem; margin-bottom: 12px; color: #ff9f43; }
-  .card p { font-size: 1rem; line-height: 1.6; opacity: 0.95; font-weight: 400; }
+  .card p { font-size: 1rem; line-height: 1.6; opacity: 0.95; }
 
   footer { padding: 80px 20px; text-align: center; background: #000; border-top: 1px solid #1a1a1a; }
-  footer p { opacity: 0.5; font-size: 0.9rem; margin: 5px 0; }
 </style>
 </head>
 <body>
@@ -120,8 +79,8 @@
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <h1>SeekRide</h1>
-  <p>Luxury suites and the premier double-deck over-water experience in Bolgoda.</p>
-  <button class="btn-whatsapp" onclick="window.location.href='https://wa.me/94772199933'">BOOK NOW</button>
+  <p>Luxury suites and the premier double-deck over-water experience in Bolgoda Lake.</p>
+  <button class="btn-whatsapp" onclick="window.location.href='https://wa.me/94772199933?text=Hi SeekRide, I want to book a stay!'">BOOK NOW</button>
 </section>
 
 <section class="services">
@@ -132,7 +91,7 @@
       <div class="card" id="rooms" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305079.jpg');">
         <div class="card-content">
           <h3>Stay</h3>
-          <p>Premium A/C suites with private lake-view balconies. Luxury redefined at SeekRide Bolgoda.</p>
+          <p>Premium A/C suites with private balconies. Luxury redefined at SeekRide Bolgoda.</p>
         </div>
       </div>
     </div>
@@ -141,7 +100,7 @@
       <div class="card" id="pool" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305085.jpg');">
         <div class="card-content">
           <h3>Relax</h3>
-          <p>Refresh in our crystal clear pool. The perfect escape for your Bolgoda day-out.</p>
+          <p>Refresh in our crystal clear pool overlooking the lake. The ultimate day-out.</p>
         </div>
       </div>
     </div>
@@ -150,7 +109,7 @@
       <div class="card" id="overwater" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg');">
         <div class="card-content">
           <h3>Boat</h3>
-          <p>Experience Bolgoda's only luxury double-deck party boat for private dinners and events.</p>
+          <p>Exclusive double-deck party boat for private cruises, dinners, and events.</p>
         </div>
       </div>
     </div>
@@ -167,17 +126,15 @@
 <script>
 const cards = document.querySelectorAll('.card');
 
-// Strict single-card detector
 const observerOptions = {
     root: null,
-    rootMargin: '-20% 0px -20% 0px', // Shrinks detection zone to only the middle of the screen
-    threshold: 0.7 
+    rootMargin: '-25% 0px -25% 0px', 
+    threshold: 0.6 
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Remove from all, then add to the one specifically in the center
             cards.forEach(c => c.classList.remove('active-focus'));
             entry.target.classList.add('active-focus');
         }
@@ -186,7 +143,6 @@ const observer = new IntersectionObserver((entries) => {
 
 cards.forEach(card => observer.observe(card));
 
-// Navbar Scroll
 window.addEventListener('scroll', () => {
     const nav = document.querySelector('header.navbar');
     window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
