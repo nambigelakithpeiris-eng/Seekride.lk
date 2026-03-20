@@ -53,14 +53,17 @@ header.navbar nav a:hover { color:#ff9f43; }
   font-family:'Orbitron', sans-serif;
   font-size:3rem; letter-spacing:8px;
   text-shadow:0 0 20px rgba(0,0,0,0.7);
+  transform: translateY(0); transition: transform 1s ease;
 }
 .hero h2 {
   font-family:'Orbitron', sans-serif;
   font-size:2rem; margin:15px 0;
   text-shadow:0 0 10px rgba(0,0,0,0.5);
+  transform: translateY(0); transition: transform 1s ease;
 }
 .hero p {
   font-size:1.1rem; opacity:0.85; max-width:600px; text-shadow:0 0 5px rgba(0,0,0,0.5);
+  transform: translateY(0); transition: transform 1s ease;
 }
 .hero .btn-book {
   margin-top:25px; background:#ff9f43; padding:16px 40px; border-radius:50px; font-weight:600;
@@ -75,21 +78,23 @@ header.navbar nav a:hover { color:#ff9f43; }
   padding:80px 20px; max-width:1200px; margin:auto; text-align:center;
 }
 .services h2 { margin-bottom:50px; font-size:2.2rem; color:#1a73e8; }
+
 .grid {
   display:flex; flex-wrap:wrap; gap:30px; justify-content:center;
+  perspective:1000px;
 }
+
 .card {
   background:#fff; border-radius:20px; padding:20px;
   width:300px; box-shadow:0 5px 15px rgba(0,0,0,0.05);
   text-align:left; transition:all 0.5s ease;
-  transform:scale(0.95); opacity:0.7; border:2px solid transparent; cursor:pointer;
+  transform: scale(0.95) translateY(40px); opacity:0.7;
+  border:2px solid transparent; cursor:pointer;
   background-size:cover; background-position:center;
   color:#fff; min-height:320px; display:flex; flex-direction:column; justify-content:flex-end;
-  padding-bottom:20px;
-  perspective:1000px;
 }
 .card.active-focus, .card:hover {
-  transform: scale(1.08) rotateY(0deg); opacity:1;
+  transform: scale(1.08) translateY(0); opacity:1;
   box-shadow:0 20px 40px rgba(0,0,0,0.2);
   border:2px solid rgba(26,115,232,0.5);
 }
@@ -176,8 +181,8 @@ footer p { margin:5px 0; font-size:0.95rem; }
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80"></div>
-      <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80"></div>
-      <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1501117716987-c8e9f8a1bdf7?auto=format&fit=crop&w=1200&q=80"></div>
+      <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&w=1200&q=80"></div>
+      <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1501117716987-c8e9f8a1bdf7?auto=format&w=1200&q=80"></div>
     </div>
     <div class="swiper-pagination"></div>
     <div class="swiper-button-next"></div>
@@ -234,8 +239,22 @@ footer p { margin:5px 0; font-size:0.95rem; }
     spaceBetween:20,
     pagination:{ el:".swiper-pagination", clickable:true },
     navigation:{ nextEl:".swiper-button-next", prevEl:".swiper-button-prev" },
-    autoplay:{ delay:2000 },
+    autoplay:{ delay:2000, disableOnInteraction:false },
   });
+
+  // Fade-in + parallax on scroll
+  const faders = document.querySelectorAll('.card, .hero h1, .hero h2, .hero p, .btn-book');
+  const appearOptions = { threshold:0.1, rootMargin:"0px 0px -50px 0px" };
+  const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll){
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      entry.target.style.transform="translateY(0) scale(1)";
+      entry.target.style.opacity="1";
+      appearOnScroll.unobserve(entry.target);
+    });
+  }, appearOptions);
+  faders.forEach(fader=>appearOnScroll.observe(fader));
+
 </script>
 
 </body>
