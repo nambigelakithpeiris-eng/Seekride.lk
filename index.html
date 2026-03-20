@@ -38,11 +38,28 @@ header.navbar nav a:hover{color:#ff9f43;}
   text-align:left;transition: all 0.3s ease, transform 0.1s ease;transform:scale(0.95) translateY(40px);
   opacity:0.7;border:2px solid transparent;cursor:pointer;background-size:cover;background-position:center;
   color:#fff;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;
+  overflow:hidden;
 }
 .card.active-focus{transform:scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg);opacity:1;
 box-shadow:0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset;border:2px solid rgba(26,115,232,0.5);}
+
 .card h3{font-size:1.5rem;margin-bottom:10px;text-shadow:0 0 5px rgba(0,0,0,0.6);}
 .card p{font-size:1rem;opacity:0.9;text-shadow:0 0 3px rgba(0,0,0,0.6);}
+
+/* Fade overlay for smooth image transitions */
+.card::before{
+  content:"";
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background-size:cover;background-position:center;
+  opacity:0;transition:opacity 0.8s ease;
+  z-index:-1;
+}
+
+/* GALLERY SECTION */
+.gallery{margin:80px auto;max-width:1000px;overflow:hidden;border-radius:20px;position:relative;}
+.gallery img{width:100%;display:block;transition:opacity 1s ease;position:absolute;top:0;left:0;opacity:0;}
+.gallery img.active{opacity:1;}
 
 /* FOOTER */
 footer{background:#1a1a1a;color:#fff;padding:50px 20px;text-align:center;}
@@ -62,6 +79,7 @@ footer p{margin:5px 0;font-size:0.95rem;}
     <a href="#pool">Pool</a>
     <a href="#events">Events</a>
     <a href="#overwater">Over Water</a>
+    <a href="#gallery">Gallery</a>
   </nav>
 </header>
 
@@ -102,6 +120,13 @@ footer p{margin:5px 0;font-size:0.95rem;}
     </div>
 
   </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80" class="active">
+  <img src="https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=1200&q=80">
+  <img src="https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?auto=format&fit=crop&w=1200&q=80">
 </section>
 
 <!-- FOOTER -->
@@ -156,26 +181,10 @@ cards.forEach(card=>{
     card.style.transform='scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg)';
     card.style.boxShadow='0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset';
   });
-  // mobile tap tilt
-  card.addEventListener('touchstart',e=>{
-    const touch=e.touches[0];
-    const rect=card.getBoundingClientRect();
-    const x=touch.clientX-rect.left;
-    const y=touch.clientY-rect.top;
-    const centerX=rect.width/2, centerY=rect.height/2;
-    const rotateX=((y-centerY)/centerY)*10;
-    const rotateY=((x-centerX)/centerX)*10;
-    card.style.transform=`scale(1.08) translateY(0) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
-    card.style.boxShadow=`0 25px 50px rgba(0,0,0,0.3),${-rotateY*2}px ${rotateX*2}px 20px rgba(26,115,232,0.6) inset`;
-  });
-  card.addEventListener('touchend',()=>{
-    card.style.transform='scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg)';
-    card.style.boxShadow='0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset';
-  });
 });
 
-// ===================== CARD GALLERY AUTO SWITCH =====================
-const galleryImages = {
+// ===================== CARD GALLERY FADE =====================
+const galleryImages={
   rooms:[
     'https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1582719478172-2b91b6e49865?auto=format&fit=crop&w=600&q=80',
@@ -197,18 +206,42 @@ const galleryImages = {
     'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=600&q=80'
   ]
 };
-
-let galleryIndex = {rooms:0,pool:0,events:0,overwater:0};
+let galleryIndex={rooms:0,pool:0,events:0,overwater:0};
 
 function switchGallery(){
   Object.keys(galleryImages).forEach(key=>{
     const card=document.getElementById(key);
-    galleryIndex[key]=(galleryIndex[key]+1)%galleryImages[key].length;
-    card.style.backgroundImage=`url('${galleryImages[key][galleryIndex[key]]}')`;
+    const nextIndex=(galleryIndex[key]+1)%galleryImages[key].length;
+    const nextImg=galleryImages[key][nextIndex];
+    // fade effect
+    const overlay = document.createElement('div');
+    overlay.style.backgroundImage=`url('${nextImg}')`;
+    overlay.style.position='absolute';
+    overlay.style.top='0'; overlay.style.left='0';
+    overlay.style.width='100%'; overlay.style.height='100%';
+    overlay.style.backgroundSize='cover';
+    overlay.style.backgroundPosition='center';
+    overlay.style.opacity='0';
+    overlay.style.transition='opacity 0.8s ease';
+    overlay.style.borderRadius='20px';
+    card.appendChild(overlay);
+    requestAnimationFrame(()=>overlay.style.opacity='1');
+    setTimeout(()=>{card.style.backgroundImage=`url('${nextImg}')`;card.removeChild(overlay);},800);
+    galleryIndex[key]=nextIndex;
   });
 }
 setInterval(switchGallery,2000);
-</script>
 
+// ===================== GALLERY SECTION =====================
+const gallerySection=document.querySelectorAll('.gallery img');
+let galleryActive=0;
+function gallerySwitch(){
+  gallerySection.forEach((img,i)=>img.classList.remove('active'));
+  gallerySection[galleryActive].classList.add('active');
+  galleryActive=(galleryActive+1)%gallerySection.length;
+}
+setInterval(gallerySwitch,2000);
+
+</script>
 </body>
 </html>
