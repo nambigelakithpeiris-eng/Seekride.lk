@@ -34,7 +34,7 @@ header.navbar nav a:hover{color:#ff9f43;}
 .grid{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;perspective:1500px;}
 
 .card{
-  background:#fff;border-radius:20px;padding:20px;width:300px;box-shadow:0 5px 15px rgba(0,0,0,0.05);
+  border-radius:20px;padding:20px;width:300px;box-shadow:0 5px 15px rgba(0,0,0,0.05);
   text-align:left;transition: all 0.3s ease, transform 0.1s ease;transform:scale(0.95) translateY(40px);
   opacity:0.7;border:2px solid transparent;cursor:pointer;background-size:cover;background-position:center;
   color:#fff;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;
@@ -81,22 +81,22 @@ footer p{margin:5px 0;font-size:0.95rem;}
   <h2>Our Offerings</h2>
   <div class="grid">
 
-    <div class="card" id="rooms" style="background-image:url('https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=600&q=80');">
+    <div class="card" id="rooms">
       <h3>🛏️ Rooms</h3>
       <p>Premium A/C suites and comfortable Non-A/C options. Perfect for couples and families.</p>
     </div>
 
-    <div class="card" id="pool" style="background-image:url('https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?auto=format&fit=crop&w=600&q=80');">
+    <div class="card" id="pool">
       <h3>🏊 Swimming Pool</h3>
       <p>Enjoy a refreshing dip in our crystal-clear pool. Perfect for day-outings.</p>
     </div>
 
-    <div class="card" id="events" style="background-image:url('https://images.unsplash.com/photo-1542251451-3f6fdb048230?auto=format&fit=crop&w=600&q=80');">
+    <div class="card" id="events">
       <h3>🎉 Events</h3>
       <p>Host your birthdays, weddings, or private parties with a beautiful Bolgoda backdrop.</p>
     </div>
 
-    <div class="card" id="overwater" style="background-image:url('https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=600&q=80');">
+    <div class="card" id="overwater">
       <h3>🚤 Over Water Packages</h3>
       <p>Experience unforgettable moments on our fully customized double-deck party boat for private dinners, celebrations, and DJ nights — the only luxury over-water experience in Bolgoda.</p>
     </div>
@@ -112,13 +112,12 @@ footer p{margin:5px 0;font-size:0.95rem;}
 </footer>
 
 <script>
-// Scroll active card logic
+// ===================== SCROLL ACTIVE CARD =====================
 const cards = document.querySelectorAll('.card');
-let ticking = false;
+let ticking=false;
 
 function updateActiveCard(){
-  let closestCard = null;
-  let closestDistance = Infinity;
+  let closestCard=null, closestDistance=Infinity;
   const center = window.innerHeight/2;
   cards.forEach(card=>{
     const rect = card.getBoundingClientRect();
@@ -132,23 +131,21 @@ function updateActiveCard(){
   }
   ticking=false;
 }
-
 window.addEventListener('scroll',()=>{if(!ticking){window.requestAnimationFrame(updateActiveCard);ticking=true;}});
 window.addEventListener('load',updateActiveCard);
 
-// Navbar background
+// ===================== NAVBAR BACKGROUND =====================
 const navbar=document.querySelector('header.navbar');
 window.addEventListener('scroll',()=>{window.scrollY>50?navbar.classList.add('scrolled'):navbar.classList.remove('scrolled');});
 
-// 3D tilt for desktop
+// ===================== 3D TILT =====================
 cards.forEach(card=>{
   card.addEventListener('mousemove',e=>{
     if(window.innerWidth>768){
       const rect=card.getBoundingClientRect();
       const x=e.clientX-rect.left;
       const y=e.clientY-rect.top;
-      const centerX=rect.width/2;
-      const centerY=rect.height/2;
+      const centerX=rect.width/2, centerY=rect.height/2;
       const rotateX=((y-centerY)/centerY)*10;
       const rotateY=((x-centerX)/centerX)*10;
       card.style.transform=`scale(1.08) translateY(0) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
@@ -159,15 +156,13 @@ cards.forEach(card=>{
     card.style.transform='scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg)';
     card.style.boxShadow='0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset';
   });
-
   // mobile tap tilt
   card.addEventListener('touchstart',e=>{
     const touch=e.touches[0];
     const rect=card.getBoundingClientRect();
     const x=touch.clientX-rect.left;
     const y=touch.clientY-rect.top;
-    const centerX=rect.width/2;
-    const centerY=rect.height/2;
+    const centerX=rect.width/2, centerY=rect.height/2;
     const rotateX=((y-centerY)/centerY)*10;
     const rotateY=((x-centerX)/centerX)*10;
     card.style.transform=`scale(1.08) translateY(0) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
@@ -178,6 +173,41 @@ cards.forEach(card=>{
     card.style.boxShadow='0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset';
   });
 });
+
+// ===================== CARD GALLERY AUTO SWITCH =====================
+const galleryImages = {
+  rooms:[
+    'https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1582719478172-2b91b6e49865?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1590490354350-08b7a6f3443a?auto=format&fit=crop&w=600&q=80'
+  ],
+  pool:[
+    'https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1522761832830-8c527d36d9cf?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1493244040629-496f6d136cc3?auto=format&fit=crop&w=600&q=80'
+  ],
+  events:[
+    'https://images.unsplash.com/photo-1542251451-3f6fdb048230?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1515165562835-c7f0e35d5c59?auto=format&fit=crop&w=600&q=80'
+  ],
+  overwater:[
+    'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=600&q=80'
+  ]
+};
+
+let galleryIndex = {rooms:0,pool:0,events:0,overwater:0};
+
+function switchGallery(){
+  Object.keys(galleryImages).forEach(key=>{
+    const card=document.getElementById(key);
+    galleryIndex[key]=(galleryIndex[key]+1)%galleryImages[key].length;
+    card.style.backgroundImage=`url('${galleryImages[key][galleryIndex[key]]}')`;
+  });
+}
+setInterval(switchGallery,2000);
 </script>
 
 </body>
