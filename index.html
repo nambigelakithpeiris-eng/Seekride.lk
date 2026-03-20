@@ -25,8 +25,11 @@ header.navbar nav a:hover{color:#ff9f43;}
 .hero h1{font-family:'Orbitron',sans-serif;font-size:3rem;letter-spacing:8px;text-shadow:0 0 20px rgba(0,0,0,0.7);}
 .hero h2{font-family:'Orbitron',sans-serif;font-size:2rem;margin:15px 0;text-shadow:0 0 10px rgba(0,0,0,0.5);}
 .hero p{font-size:1.1rem;opacity:0.85;max-width:600px;text-shadow:0 0 5px rgba(0,0,0,0.5);}
-.hero .btn-book{margin-top:25px;background:#ff9f43;padding:16px 40px;border-radius:50px;font-weight:600;font-size:1rem;color:#fff;border:none;cursor:pointer;transition:all 0.4s;transform:scale(0.95);}
-.hero .btn-book:hover,.hero .btn-book.active-focus{transform:scale(1.15);box-shadow:0 10px 25px rgba(255,159,67,0.5);}
+.hero .btn-book{
+  margin-top:25px;background:#ff9f43;padding:16px 40px;border-radius:50px;font-weight:600;font-size:1rem;color:#fff;border:none;cursor:pointer;
+  transition:all 0.4s;transform:scale(0.95);opacity:0.7;
+}
+.hero .btn-book.active-focus{transform:scale(1.15);opacity:1;box-shadow:0 10px 25px rgba(255,159,67,0.5);}
 
 /* SERVICES CARDS */
 .services{padding:80px 20px;max-width:1200px;margin:auto;text-align:center;}
@@ -38,8 +41,7 @@ header.navbar nav a:hover{color:#ff9f43;}
   text-align:left;transition: all 0.3s ease, transform 0.1s ease;transform:scale(0.95) translateY(40px);
   opacity:0.7;border:2px solid transparent;cursor:pointer;background-size:cover;background-position:center;
   color:#fff;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end;
-  position:relative;
-  overflow:hidden;
+  position:relative;overflow:hidden;
 }
 .card.active-focus{transform:scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg);opacity:1;
 box-shadow:0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset;border:2px solid rgba(26,115,232,0.5);}
@@ -47,7 +49,7 @@ box-shadow:0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset;borde
 .card h3{font-size:1.5rem;margin-bottom:10px;text-shadow:0 0 5px rgba(0,0,0,0.6);}
 .card p{font-size:1rem;opacity:0.9;text-shadow:0 0 3px rgba(0,0,0,0.6);}
 
-/* Fade overlay for smooth image transitions */
+/* CARD IMAGE FADE */
 .card::before{
   content:"";
   position:absolute;top:0;left:0;width:100%;height:100%;
@@ -91,7 +93,7 @@ footer p{margin:5px 0;font-size:0.95rem;}
   <h1>SeekRide</h1>
   <h2>Bolgoda</h2>
   <p>Luxury rooms, pool days, and lakeside celebrations. Experience hospitality like no other in Bolgoda.</p>
-  <button class="btn-book">Book via WhatsApp</button>
+  <button class="btn-book" id="btnBook">Book via WhatsApp</button>
 </section>
 
 <!-- OFFERINGS -->
@@ -137,22 +139,28 @@ footer p{margin:5px 0;font-size:0.95rem;}
 </footer>
 
 <script>
-// ===================== SCROLL ACTIVE CARD =====================
-const cards = document.querySelectorAll('.card');
+// ===================== ACTIVE CARD =====================
+const cards=document.querySelectorAll('.card');
+const btnBook=document.getElementById('btnBook');
 let ticking=false;
 
 function updateActiveCard(){
-  let closestCard=null, closestDistance=Infinity;
-  const center = window.innerHeight/2;
+  let closestCard=null,closestDistance=Infinity;
+  const center=window.innerHeight/2;
+
   cards.forEach(card=>{
-    const rect = card.getBoundingClientRect();
-    const cardCenter = rect.top + rect.height/2;
-    const distance = Math.abs(center - cardCenter);
-    if(distance < closestDistance){closestDistance=distance;closestCard=card;}
+    const rect=card.getBoundingClientRect();
+    const cardCenter=rect.top+rect.height/2;
+    const distance=Math.abs(center-cardCenter);
+    if(distance<closestDistance){closestDistance=distance;closestCard=card;}
   });
+
   if(closestCard){
     cards.forEach(c=>c.classList.remove('active-focus'));
     closestCard.classList.add('active-focus');
+    btnBook.classList.add('active-focus');
+  } else {
+    btnBook.classList.remove('active-focus');
   }
   ticking=false;
 }
@@ -163,32 +171,12 @@ window.addEventListener('load',updateActiveCard);
 const navbar=document.querySelector('header.navbar');
 window.addEventListener('scroll',()=>{window.scrollY>50?navbar.classList.add('scrolled'):navbar.classList.remove('scrolled');});
 
-// ===================== 3D TILT =====================
-cards.forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    if(window.innerWidth>768){
-      const rect=card.getBoundingClientRect();
-      const x=e.clientX-rect.left;
-      const y=e.clientY-rect.top;
-      const centerX=rect.width/2, centerY=rect.height/2;
-      const rotateX=((y-centerY)/centerY)*10;
-      const rotateY=((x-centerX)/centerX)*10;
-      card.style.transform=`scale(1.08) translateY(0) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
-      card.style.boxShadow=`0 25px 50px rgba(0,0,0,0.3),${-rotateY*2}px ${rotateX*2}px 20px rgba(26,115,232,0.6) inset`;
-    }
-  });
-  card.addEventListener('mouseleave',()=>{
-    card.style.transform='scale(1.08) translateY(0) rotateX(0deg) rotateY(0deg)';
-    card.style.boxShadow='0 25px 50px rgba(0,0,0,0.3),0 0 20px rgba(26,115,232,0.6) inset';
-  });
-});
-
-// ===================== CARD GALLERY FADE =====================
+// ===================== CARD IMAGE ROTATION =====================
 const galleryImages={
   rooms:[
     'https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1582719478172-2b91b6e49865?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1590490354350-08b7a6f3443a?auto=format&fit=crop&w=600&q=80'
+    'https://images.unsplash.com/photo-1590490354350-08b7a6f3443a?auto=format&w=600&q=80'
   ],
   pool:[
     'https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?auto=format&fit=crop&w=600&q=80',
@@ -202,35 +190,24 @@ const galleryImages={
   ],
   overwater:[
     'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&fit=crop&w=600&q=80'
+    'https://images.unsplash.com/photo-1507525428034-b723cf961d3?auto=format&w=600&q=80',
+    'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?auto=format&w=600&q=80'
   ]
 };
 let galleryIndex={rooms:0,pool:0,events:0,overwater:0};
 
-function switchGallery(){
-  Object.keys(galleryImages).forEach(key=>{
-    const card=document.getElementById(key);
-    const nextIndex=(galleryIndex[key]+1)%galleryImages[key].length;
-    const nextImg=galleryImages[key][nextIndex];
-    // fade effect
-    const overlay = document.createElement('div');
-    overlay.style.backgroundImage=`url('${nextImg}')`;
-    overlay.style.position='absolute';
-    overlay.style.top='0'; overlay.style.left='0';
-    overlay.style.width='100%'; overlay.style.height='100%';
-    overlay.style.backgroundSize='cover';
-    overlay.style.backgroundPosition='center';
-    overlay.style.opacity='0';
-    overlay.style.transition='opacity 0.8s ease';
-    overlay.style.borderRadius='20px';
-    card.appendChild(overlay);
-    requestAnimationFrame(()=>overlay.style.opacity='1');
-    setTimeout(()=>{card.style.backgroundImage=`url('${nextImg}')`;card.removeChild(overlay);},800);
-    galleryIndex[key]=nextIndex;
-  });
+function switchCardGallery(){
+  const activeCard=document.querySelector('.card.active-focus');
+  if(!activeCard) return;
+  const key=activeCard.id;
+  const nextIndex=(galleryIndex[key]+1)%galleryImages[key].length;
+  const nextImg=galleryImages[key][nextIndex];
+
+  activeCard.style.backgroundImage=`url('${nextImg}')`;
+  galleryIndex[key]=nextIndex;
 }
-setInterval(switchGallery,2000);
+// Only active card rotates images
+setInterval(switchCardGallery,2000);
 
 // ===================== GALLERY SECTION =====================
 const gallerySection=document.querySelectorAll('.gallery img');
@@ -241,7 +218,6 @@ function gallerySwitch(){
   galleryActive=(galleryActive+1)%gallerySection.length;
 }
 setInterval(gallerySwitch,2000);
-
 </script>
 </body>
 </html>
