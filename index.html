@@ -21,8 +21,7 @@
 
   /* HERO SECTION */
   .hero{height:100vh;width:100%;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;overflow:hidden;}
-  /* Use a high-quality property photo as the background */
-  .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg?k=f1a1c1d1e1f1g1h1i1j1k1l1m1n1o1p1q1r1s1t1u1v1w1x1y1z1&o=&hp=1') no-repeat center center/cover;z-index:-2;}
+  .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg') no-repeat center center/cover;z-index:-2;}
   .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:-1;}
   
   .hero h1{font-family:'Orbitron',sans-serif;font-size:4.5rem;letter-spacing:10px;text-shadow:0 0 30px rgba(0,0,0,0.8);}
@@ -85,7 +84,7 @@
   <h1>SeekRide</h1>
   <h2>Bolgoda Lake</h2>
   <p>Discover Sri Lanka's ultimate lakeside sanctuary. Luxury suites, infinity vibes, and the only premium double-deck over-water experience in Bolgoda.</p>
-  <button class="btn-whatsapp" onclick="window.location.href='https://wa.me/94760029526?text=Hi SeekRide, I want to book a stay!'">Book via WhatsApp</button>
+  <button class="btn-whatsapp" onclick="window.location.href='https://wa.me/94772199933?text=Hi SeekRide, I am interested in booking a stay or event!'">Book via WhatsApp</button>
 </section>
 
 <section class="services">
@@ -117,7 +116,7 @@
   <h3>SEEKRIDE BOLGODA</h3>
   <div class="contact-box">
     <p>📍 Lake Drive Garden, Bandaragama, Sri Lanka</p>
-    <p>📞 +94 76 002 9526</p>
+    <p>📞 +94 77 219 9933</p>
   </div>
   <p style="margin-top:40px;">© 2026 SeekRide Luxury Hotel & Over-Water Experiences</p>
 </footer>
@@ -126,7 +125,6 @@
 const cards = document.querySelectorAll('.card');
 const navbar = document.querySelector('header.navbar');
 
-// Handle Scroll Events
 function handleScroll() {
   const center = window.innerHeight / 2;
   window.scrollY > 50 ? navbar.classList.add('scrolled') : navbar.classList.remove('scrolled');
@@ -143,7 +141,6 @@ function handleScroll() {
 }
 window.addEventListener('scroll', handleScroll);
 
-// Main Gallery Auto-play
 const galleryImgs = document.querySelectorAll('.gallery-container img');
 let gIdx = 0;
 setInterval(() => {
@@ -152,7 +149,6 @@ setInterval(() => {
   galleryImgs[gIdx].classList.add('active');
 }, 4500);
 
-// Initialize
 handleScroll();
 </script>
 
