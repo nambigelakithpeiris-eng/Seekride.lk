@@ -17,11 +17,10 @@
   header.navbar .logo{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:#fff;letter-spacing:2px;}
   header.navbar nav a{color:#fff;margin-left:12px;font-size:0.7rem;text-decoration:none;font-family:'Orbitron';opacity:0.8;}
 
-  /* HERO - WITH YOUR SEEKRIDE LOGO WALL */
+  /* HERO */
   .hero{height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:20px;}
   .hero-bg{
     position:absolute;top:0;left:0;width:100%;height:100%;
-    /* Your uploaded glow wall image */
     background:url('https://i.ibb.co/v6mYfR0Z/seekride-wall.jpg') no-repeat center center/cover;
     z-index:-2;
   }
@@ -30,7 +29,7 @@
   .hero p{font-size:0.9rem;opacity:0.9;max-width:300px;margin-bottom:25px;line-height:1.4;}
   .btn-whatsapp{background:#25D366;padding:15px 35px;border-radius:50px;font-weight:700;color:#fff;border:none;font-family:'Orbitron';font-size:0.8rem;}
 
-  /* REFINED GRID - SHOWING NEXT CARDS */
+  /* SERVICES */
   .services { padding: 40px 0; }
   .services h2 { margin-bottom: 20px; font-family: 'Orbitron'; font-size: 1.5rem; color: #ff9f43; text-align: center;}
   
@@ -38,7 +37,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Reduced gap so they sit closer together */
+    gap: 20px;
   }
 
   .card-container {
@@ -53,7 +52,7 @@
     padding: 25px;
     width: 90%;
     max-width: 380px;
-    height: 400px; /* Controlled height to fit more on screen */
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -61,15 +60,12 @@
     overflow: hidden;
     background-size: cover;
     background-position: center;
-    
-    /* Default state: visible but slightly smaller */
     transform: scale(0.92);
     opacity: 0.6;
     transition: all 0.4s ease-out;
     border: 1px solid rgba(255,159,67,0.2);
   }
 
-  /* ACTIVE STATE: Pops out clearly */
   .card.active-focus {
     transform: scale(1.0);
     opacity: 1;
@@ -89,6 +85,23 @@
   .card h3 { font-family: 'Orbitron'; font-size: 1.6rem; margin-bottom: 8px; color: #ff9f43; }
   .card p { font-size: 0.85rem; line-height: 1.4; opacity: 0.9; }
 
+  /* GALLERY */
+  .gallery { padding: 40px 20px; }
+  .gallery h2 { font-family: 'Orbitron'; font-size: 1.5rem; color: #ff9f43; text-align: center; margin-bottom: 20px; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+  .gallery-grid img {
+    width: 100%;
+    border-radius: 12px;
+    transition: transform 0.3s;
+  }
+  .gallery-grid img:hover {
+    transform: scale(1.05);
+  }
+
   footer { padding: 40px 20px; text-align: center; background: #000; font-size: 0.8rem; opacity: 0.6; }
 </style>
 </head>
@@ -100,6 +113,7 @@
     <a href="#rooms">STAY</a>
     <a href="#pool">RELAX</a>
     <a href="#overwater">BOAT</a>
+    <a href="#gallery">GALLERY</a>
   </nav>
 </header>
 
@@ -114,7 +128,6 @@
 <section class="services">
   <h2>EXPLORE</h2>
   <div class="grid">
-    
     <div class="card-container">
       <div class="card active-focus" id="rooms" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305079.jpg');">
         <div class="card-content">
@@ -123,7 +136,6 @@
         </div>
       </div>
     </div>
-
     <div class="card-container">
       <div class="card" id="pool" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305085.jpg');">
         <div class="card-content">
@@ -132,7 +144,6 @@
         </div>
       </div>
     </div>
-
     <div class="card-container">
       <div class="card" id="overwater" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg');">
         <div class="card-content">
@@ -141,7 +152,16 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
 
+<section class="gallery" id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery-grid">
+    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305079.jpg" alt="Luxury Suite">
+    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305085.jpg" alt="Pool View">
+    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg" alt="Party Boat">
+    <img src="https://i.ibb.co/v6mYfR0Z/seekride-wall.jpg" alt="SeekRide Wall">
   </div>
 </section>
 
@@ -152,28 +172,9 @@
 
 <script>
 const cards = document.querySelectorAll('.card');
-
-const observerOptions = {
-    root: null,
-    threshold: 0.5 
-};
-
+const observerOptions = { root: null, threshold: 0.5 };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             cards.forEach(c => c.classList.remove('active-focus'));
-            entry.target.classList.add('active-focus');
-        }
-    });
-}, observerOptions);
-
-cards.forEach(card => observer.observe(card));
-
-window.addEventListener('scroll', () => {
-    const nav = document.querySelector('header.navbar');
-    window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
-});
-</script>
-
-</body>
-</html>
+            entry.target.classList
