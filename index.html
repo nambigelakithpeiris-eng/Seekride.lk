@@ -172,7 +172,9 @@
 
 <script>
 const cards = document.querySelectorAll('.card');
+
 const observerOptions = { root: null, threshold: 0.5 };
+
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
