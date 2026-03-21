@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+/* RESET */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden;}
-html{scroll-behavior:smooth;}
 
-/* NAV */
+/* NAVBAR */
 .nav{
   position:fixed;
   width:100%;
@@ -24,17 +24,17 @@ html{scroll-behavior:smooth;}
 }
 .nav.scrolled{background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);}
 .logo{font-family:'Orbitron';letter-spacing:2px;}
-.nav a{color:#fff;margin-left:10px;font-size:0.75rem;text-decoration:none;font-family:'Orbitron';}
+.nav a{color:#fff;margin-left:12px;font-size:0.75rem;text-decoration:none;font-family:'Orbitron';}
 
 /* HERO */
 .hero{
   height:100vh;
+  background:url("images/hero.jpg") center/cover no-repeat;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  background:url('images/hero.jpg') center/cover no-repeat;
 }
 .hero h1{font-family:'Orbitron';font-size:3rem;}
 .hero p{margin:10px 0 20px;font-size:0.9rem;}
@@ -45,47 +45,34 @@ html{scroll-behavior:smooth;}
   border:none;
   color:#fff;
   font-weight:600;
+  cursor:pointer;
 }
 
 /* SECTION */
 .section{padding:60px 20px;text-align:center;}
 .section h2{font-family:'Orbitron';margin-bottom:25px;color:#ff9f43;}
 
-/* CARD */
-.card{
+/* SINGLE SLIDER */
+.slider{
+  position:relative;
+  width:90%;
+  max-width:700px;
   height:400px;
+  margin:0 auto;
   border-radius:20px;
-  margin:20px auto;
-  max-width:400px;
-  display:flex;
-  align-items:flex-end;
-  padding:20px;
-  background-size:cover;
-  background-position:center;
-
-  transform:scale(0.9);
-  opacity:0.5;
-  transition:0.4s;
+  overflow:hidden;
 }
-.card.active{transform:scale(1);opacity:1;}
-.card::after{
-  content:"";
+.slider img{
   position:absolute;
-  inset:0;
-  background:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-  border-radius:20px;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition: opacity 0.5s ease;
 }
-.card-content{position:relative;z-index:2;text-align:left;}
-.card h3{font-family:'Orbitron';color:#ff9f43;}
-.card p{font-size:0.85rem;}
-
-/* GALLERY */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:10px;
+.slider img.active{
+  opacity:1;
 }
-.gallery img{width:100%;border-radius:10px;}
 
 /* FOOTER */
 footer{padding:30px;text-align:center;background:#000;font-size:0.8rem;opacity:0.6;}
@@ -94,94 +81,76 @@ footer{padding:30px;text-align:center;background:#000;font-size:0.8rem;opacity:0
 
 <body>
 
+<!-- NAVBAR -->
 <div class="nav">
   <div class="logo">SeekRide</div>
   <div>
     <a href="#stay">STAY</a>
     <a href="#pool">POOL</a>
     <a href="#boat">BOAT</a>
+    <a href="#gallery">GALLERY</a>
   </div>
 </div>
 
+<!-- HERO -->
 <section class="hero">
   <h1>SeekRide</h1>
-  <p>Luxury stay & party boat on Bolgoda Lake</p>
+  <p>Luxury suites and Bolgoda's premier boat experience</p>
   <button class="btn" onclick="location.href='https://wa.me/94772199933'">Book Now</button>
 </section>
 
-<section class="section">
-  <h2>Experience</h2>
-
-  <div class="card" id="stay" data-images="images/room1.jpg,images/room2.jpg">
-    <div class="card-content">
-      <h3>Stay</h3>
-      <p>Luxury lake view suites</p>
-    </div>
-  </div>
-
-  <div class="card" id="pool" data-images="images/pool1.jpg,images/pool2.jpg">
-    <div class="card-content">
-      <h3>Pool</h3>
-      <p>Crystal clear swimming pool</p>
-    </div>
-  </div>
-
-  <div class="card" id="boat" data-images="images/boat1.jpg,images/boat2.jpg">
-    <div class="card-content">
-      <h3>Boat</h3>
-      <p>Private double-deck party cruises</p>
-    </div>
-  </div>
-
+<!-- EXPERIENCE SECTIONS -->
+<section class="section" id="stay">
+  <h2>Stay</h2>
+  <p>Premium lake-view suites for your comfort.</p>
 </section>
 
-<section class="section">
+<section class="section" id="pool">
+  <h2>Pool</h2>
+  <p>Relax in our crystal clear swimming pool.</p>
+</section>
+
+<section class="section" id="boat">
+  <h2>Boat</h2>
+  <p>Private double-deck party cruises.</p>
+</section>
+
+<!-- SINGLE SLIDER / GALLERY -->
+<section class="section" id="gallery">
   <h2>Gallery</h2>
-  <div class="gallery">
-    <img src="images/room1.jpg">
+  <div class="slider">
+    <img src="images/room1.jpg" class="active">
+    <img src="images/room2.jpg">
     <img src="images/pool1.jpg">
+    <img src="images/pool2.jpg">
     <img src="images/boat1.jpg">
+    <img src="images/boat2.jpg">
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <p>Bandaragama, Sri Lanka</p>
-  <p>© SeekRide</p>
+  <p>📍 Bandaragama, Sri Lanka | 📞 +94 77 219 9933</p>
+  <p>© 2026 SeekRide Bolgoda</p>
 </footer>
 
+<!-- SCRIPTS -->
 <script>
-// NAVBAR EFFECT
+// NAVBAR SCROLL
 window.addEventListener("scroll",()=>{
   document.querySelector(".nav")
     .classList.toggle("scrolled",window.scrollY>20);
 });
 
-// CARD FOCUS
-const cards=document.querySelectorAll(".card");
+// SINGLE SLIDER
+const slides = document.querySelectorAll(".slider img");
+let current = 0;
 
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      cards.forEach(c=>c.classList.remove("active"));
-      entry.target.classList.add("active");
-    }
-  });
-},{threshold:0.5});
-
-cards.forEach(c=>observer.observe(c));
-
-// IMAGE SLIDESHOW
-cards.forEach(card=>{
-  const imgs=card.dataset.images.split(",");
-  let i=0;
-
-  card.style.backgroundImage=`url(${imgs[0]})`;
-
-  setInterval(()=>{
-    i=(i+1)%imgs.length;
-    card.style.backgroundImage=`url(${imgs[i]})`;
-  },3000);
-});
+setInterval(() => {
+  slides[current].classList.remove("active");
+  current = (current + 1) % slides.length;
+  slides[current].classList.add("active");
+}, 1000); // switch every 1 second
 </script>
 
 </body>
