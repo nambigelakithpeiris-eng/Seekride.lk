@@ -2,181 +2,187 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>SeekRide Luxury Hotel Bolgoda</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SeekRide Bolgoda</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html{scroll-behavior: smooth;}
-  body{font-family:'Inter',sans-serif;color:#fff;background:#060606;overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden;}
+html{scroll-behavior:smooth;}
 
-  /* NAVBAR */
-  header.navbar{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 20px;z-index:999;transition:0.4s;}
-  header.navbar.scrolled{background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);}
-  header.navbar .logo{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:#fff;letter-spacing:2px;}
-  header.navbar nav a{color:#fff;margin-left:12px;font-size:0.7rem;text-decoration:none;font-family:'Orbitron';opacity:0.8;}
+/* NAV */
+.nav{
+  position:fixed;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:15px 20px;
+  z-index:1000;
+  transition:0.3s;
+}
+.nav.scrolled{background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);}
+.logo{font-family:'Orbitron';letter-spacing:2px;}
+.nav a{color:#fff;margin-left:10px;font-size:0.75rem;text-decoration:none;font-family:'Orbitron';}
 
-  /* HERO */
-  .hero{height:100vh;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:20px;}
-  .hero-bg{
-    position:absolute;top:0;left:0;width:100%;height:100%;
-    background:url('https://i.ibb.co/v6mYfR0Z/seekride-wall.jpg') no-repeat center center/cover;
-    z-index:-2;
-  }
-  .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:-1;}
-  .hero h1{font-family:'Orbitron',sans-serif;font-size:3rem;margin-bottom:10px;letter-spacing:4px;}
-  .hero p{font-size:0.9rem;opacity:0.9;max-width:300px;margin-bottom:25px;line-height:1.4;}
-  .btn-whatsapp{background:#25D366;padding:15px 35px;border-radius:50px;font-weight:700;color:#fff;border:none;font-family:'Orbitron';font-size:0.8rem;}
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:url('images/hero.jpg') center/cover no-repeat;
+}
+.hero h1{font-family:'Orbitron';font-size:3rem;}
+.hero p{margin:10px 0 20px;font-size:0.9rem;}
+.btn{
+  background:#25D366;
+  padding:14px 30px;
+  border-radius:50px;
+  border:none;
+  color:#fff;
+  font-weight:600;
+}
 
-  /* SERVICES */
-  .services { padding: 40px 0; }
-  .services h2 { margin-bottom: 20px; font-family: 'Orbitron'; font-size: 1.5rem; color: #ff9f43; text-align: center;}
-  
-  .grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
+/* SECTION */
+.section{padding:60px 20px;text-align:center;}
+.section h2{font-family:'Orbitron';margin-bottom:25px;color:#ff9f43;}
 
-  .card-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-  }
+/* CARD */
+.card{
+  height:400px;
+  border-radius:20px;
+  margin:20px auto;
+  max-width:400px;
+  display:flex;
+  align-items:flex-end;
+  padding:20px;
+  background-size:cover;
+  background-position:center;
 
-  .card {
-    border-radius: 25px;
-    padding: 25px;
-    width: 90%;
-    max-width: 380px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    transform: scale(0.92);
-    opacity: 0.6;
-    transition: all 0.4s ease-out;
-    border: 1px solid rgba(255,159,67,0.2);
-  }
+  transform:scale(0.9);
+  opacity:0.5;
+  transition:0.4s;
+}
+.card.active{transform:scale(1);opacity:1;}
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  border-radius:20px;
+}
+.card-content{position:relative;z-index:2;text-align:left;}
+.card h3{font-family:'Orbitron';color:#ff9f43;}
+.card p{font-size:0.85rem;}
 
-  .card.active-focus {
-    transform: scale(1.0);
-    opacity: 1;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-    border: 2px solid #ff9f43;
-  }
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:10px;
+}
+.gallery img{width:100%;border-radius:10px;}
 
-  .card::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, transparent 80%);
-    z-index: 1;
-  }
-
-  .card-content { position: relative; z-index: 2; }
-  .card h3 { font-family: 'Orbitron'; font-size: 1.6rem; margin-bottom: 8px; color: #ff9f43; }
-  .card p { font-size: 0.85rem; line-height: 1.4; opacity: 0.9; }
-
-  /* GALLERY */
-  .gallery { padding: 40px 20px; }
-  .gallery h2 { font-family: 'Orbitron'; font-size: 1.5rem; color: #ff9f43; text-align: center; margin-bottom: 20px; }
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-  }
-  .gallery-grid img {
-    width: 100%;
-    border-radius: 12px;
-    transition: transform 0.3s;
-  }
-  .gallery-grid img:hover {
-    transform: scale(1.05);
-  }
-
-  footer { padding: 40px 20px; text-align: center; background: #000; font-size: 0.8rem; opacity: 0.6; }
+/* FOOTER */
+footer{padding:30px;text-align:center;background:#000;font-size:0.8rem;opacity:0.6;}
 </style>
 </head>
+
 <body>
 
-<header class="navbar">
+<div class="nav">
   <div class="logo">SeekRide</div>
-  <nav>
-    <a href="#rooms">STAY</a>
-    <a href="#pool">RELAX</a>
-    <a href="#overwater">BOAT</a>
-    <a href="#gallery">GALLERY</a>
-  </nav>
-</header>
+  <div>
+    <a href="#stay">STAY</a>
+    <a href="#pool">POOL</a>
+    <a href="#boat">BOAT</a>
+  </div>
+</div>
 
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
   <h1>SeekRide</h1>
-  <p>Luxury suites and Bolgoda's premier double-deck party boat experience.</p>
-  <button class="btn-whatsapp" onclick="window.location.href='https://wa.me/94772199933'">BOOK NOW</button>
+  <p>Luxury stay & party boat on Bolgoda Lake</p>
+  <button class="btn" onclick="location.href='https://wa.me/94772199933'">Book Now</button>
 </section>
 
-<section class="services">
-  <h2>EXPLORE</h2>
-  <div class="grid">
-    <div class="card-container">
-      <div class="card active-focus" id="rooms" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305079.jpg');">
-        <div class="card-content">
-          <h3>Stay</h3>
-          <p>Premium A/C suites with private lake-view balconies.</p>
-        </div>
-      </div>
-    </div>
-    <div class="card-container">
-      <div class="card" id="pool" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305085.jpg');">
-        <div class="card-content">
-          <h3>Relax</h3>
-          <p>Refresh in our crystal clear pool overlooking the garden.</p>
-        </div>
-      </div>
-    </div>
-    <div class="card-container">
-      <div class="card" id="overwater" style="background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg');">
-        <div class="card-content">
-          <h3>Boat</h3>
-          <p>Double-deck party boat for private cruises and DJ nights.</p>
-        </div>
-      </div>
+<section class="section">
+  <h2>Experience</h2>
+
+  <div class="card" id="stay" data-images="images/room1.jpg,images/room2.jpg">
+    <div class="card-content">
+      <h3>Stay</h3>
+      <p>Luxury lake view suites</p>
     </div>
   </div>
+
+  <div class="card" id="pool" data-images="images/pool1.jpg,images/pool2.jpg">
+    <div class="card-content">
+      <h3>Pool</h3>
+      <p>Crystal clear swimming pool</p>
+    </div>
+  </div>
+
+  <div class="card" id="boat" data-images="images/boat1.jpg,images/boat2.jpg">
+    <div class="card-content">
+      <h3>Boat</h3>
+      <p>Private double-deck party cruises</p>
+    </div>
+  </div>
+
 </section>
 
-<section class="gallery" id="gallery">
+<section class="section">
   <h2>Gallery</h2>
-  <div class="gallery-grid">
-    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305079.jpg" alt="Luxury Suite">
-    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/498305085.jpg" alt="Pool View">
-    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/51975079.jpg" alt="Party Boat">
-    <img src="https://i.ibb.co/v6mYfR0Z/seekride-wall.jpg" alt="SeekRide Wall">
+  <div class="gallery">
+    <img src="images/room1.jpg">
+    <img src="images/pool1.jpg">
+    <img src="images/boat1.jpg">
   </div>
 </section>
 
 <footer>
-  <p>📍 Bandaragama, Sri Lanka | 📞 +94 77 219 9933</p>
-  <p>© 2026 SeekRide Bolgoda</p>
+  <p>Bandaragama, Sri Lanka</p>
+  <p>© SeekRide</p>
 </footer>
 
 <script>
-const cards = document.querySelectorAll('.card');
+// NAVBAR EFFECT
+window.addEventListener("scroll",()=>{
+  document.querySelector(".nav")
+    .classList.toggle("scrolled",window.scrollY>20);
+});
 
-const observerOptions = { root: null, threshold: 0.5 };
+// CARD FOCUS
+const cards=document.querySelectorAll(".card");
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            cards.forEach(c => c.classList.remove('active-focus'));
-            entry.target.classList
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      cards.forEach(c=>c.classList.remove("active"));
+      entry.target.classList.add("active");
+    }
+  });
+},{threshold:0.5});
+
+cards.forEach(c=>observer.observe(c));
+
+// IMAGE SLIDESHOW
+cards.forEach(card=>{
+  const imgs=card.dataset.images.split(",");
+  let i=0;
+
+  card.style.backgroundImage=`url(${imgs[0]})`;
+
+  setInterval(()=>{
+    i=(i+1)%imgs.length;
+    card.style.backgroundImage=`url(${imgs[i]})`;
+  },3000);
+});
+</script>
+
+</body>
+</html>
